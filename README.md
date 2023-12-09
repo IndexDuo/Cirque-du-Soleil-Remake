@@ -1,7 +1,7 @@
-# DIG3175 Final Assignment 
+# DIG3175 Final Assignment
 
 ## Overview
-This project is an assignment for my DIG 3175 class, focusing on web development with an emphasis on accessibility and user-friendly design. The main objective is to create a ticket selection interface for Cirque du Soleil's "Drawn to Life" event that is accessible and easy to navigate.
+This project is an assignment for my DIG 3175 class, focusing on web accessibility design. The main objective is to create a ticket selection interface that is accessible.
 
 ## Accessibility
 Special attention has been given to ensure the website is accessible. This includes:
