@@ -16,30 +16,30 @@ document.addEventListener("DOMContentLoaded", function() {
     var row5Map = document.getElementById("row5Map");
 
 
-    var selectedSeats = [];
-
-    // Find all price buttons and add event listeners
-    var priceButtons = document.querySelectorAll(".price-button");
-    priceButtons.forEach(function(button) {
-        button.addEventListener("click", function(event) {
-            var seatInfo = event.target.parentElement;
-            addSeatToCart(seatInfo);
-            button.disabled = true; // Disable the button after selection
-        });
-    });
-
-    function addSeatToCart(seatInfo) {
-        var seatDetails = seatInfo.querySelector('p').textContent;
-        var [section, row, seat, adultPrice, childPrice] = seatDetails.split(', ');
+    function addSeatToCart(button) {
+        var seatInfo = button.parentElement.querySelector('p').textContent;
+        var seatDetails = seatInfo.split(', ');
+        var section = seatDetails[0].split(': ')[1];
+        var row = seatDetails[1].split(': ')[1];
+        var seatNumber = seatDetails[2].split(': ')[1];
+        var price = button.textContent;
 
         // Create a new row in the cart table for the selected seat
         var cartTable = document.getElementById("cart-table").querySelector("tbody");
         var newRow = cartTable.insertRow();
-        newRow.innerHTML = `<td>${section.split(': ')[1]}</td><td>${row.split(': ')[1]}</td><td>${seat.split(': ')[1]}</td><td>${adultPrice.split(': ')[1]}</td>`;
+        newRow.innerHTML = `<td>${row}</td><td>${seatNumber}</td><td>${price}</td>`;
 
-        // Add the selected seat details to the array
-        selectedSeats.push({ section: section.split(': ')[1], row: row.split(': ')[1], seat: seat.split(': ')[1], price: adultPrice.split(': ')[1] });
+        // Disable the button after selection
+        button.disabled = true;
     }
+
+    // Find all price buttons and add event listeners
+    var priceButtons = document.querySelectorAll(".price-button");
+    priceButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            addSeatToCart(button);
+        });
+    });
 
     sectionJButton.addEventListener("click", function() {
         currentStep = "row"; // Update the current step
