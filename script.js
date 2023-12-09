@@ -31,6 +31,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Disable the button after selection
         button.disabled = true;
+
+        var deleteCell = newRow.insertCell();
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            // Remove the row from the cart
+            cartTable.deleteRow(newRow.rowIndex - 1);
+
+            // Enable the corresponding seat button again
+            button.disabled = false;
+        };
+        deleteCell.appendChild(deleteButton);
     }
 
     // Find all price buttons and add event listeners
