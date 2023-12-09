@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var currentStep = "section"; // Track the current step
-
+    // It's the DOM! The Magnificent DOM!
     var sectionJButton = document.getElementById("section-J");
     var sectionJMap = document.getElementById("sectionJMap");
     var fullMap = document.getElementById("fullMap");
