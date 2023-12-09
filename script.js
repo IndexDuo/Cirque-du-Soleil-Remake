@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 
-    var totalPrice = 0;
+
     var currentStep = "section"; // Track the current step
     // It's the DOM! The Magnificent DOM!
     var sectionJButton = document.getElementById("section-J");
@@ -23,11 +23,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var row = seatDetails[1].split(': ')[1];
         var seatNumber = seatDetails[2].split(': ')[1];
         var price = button.textContent;
-        var priceText = button.textContent;
-    var priceValue = parseFloat(priceText.match(/\$([0-9]+\.[0-9]{2})/)[1]);
-
-    totalPrice += priceValue;
-    updateTotalPrice();
 
         // Create a new row in the cart table for the selected seat
         var cartTable = document.getElementById("cart-table").querySelector("tbody");
@@ -36,24 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Disable the button after selection
         button.disabled = true;
-
-        var deleteCell = newRow.insertCell();
-        var deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.onclick = function() {
-            // Remove the row from the cart
-            cartTable.deleteRow(newRow.rowIndex - 1);
-
-            // Enable the corresponding seat button again
-            button.disabled = false;
-            totalPrice -= priceValue;
-        updateTotalPrice();
-        };
-        deleteCell.appendChild(deleteButton);
-    }
-    function updateTotalPrice() {
-        var totalPriceElement = document.getElementById("total-price");
-        totalPriceElement.textContent = totalPrice.toFixed(2);
     }
 
     // Find all price buttons and add event listeners
