@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var seatButtons = document.querySelector(".seat-buttons");
     var row5Button = document.getElementById("row-5");
     var row5Map = document.getElementById("row5Map");
+    var selectionTitle = document.getElementById("selection-title");
 
     sectionJButton.addEventListener("click", function() {
         // Display the section J map and hide the full map
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fullMap.style.display = "none";
         selectionButtons.style.display = "none";
         rowButtons.style.display = "block";
+        selectionTitle.textContent = "Choose a row in Section J"
     });
 
     row5Button.addEventListener("click", function() {
@@ -22,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         rowButtons.style.display = "none";
         row5Map.style.display = "block";
         sectionJMap.style.display = "none";
+        selectionTitle.textContent = "Choose a seat in Section J Row 5"
     });
 
 });
