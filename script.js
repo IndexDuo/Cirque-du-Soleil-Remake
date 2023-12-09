@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-
     var totalPrice = 0;
     var currentStep = "section"; // Track the current step
-    // It's the DOM! The Magnificent DOM!
+
     var sectionJButton = document.getElementById("section-J");
     var sectionJMap = document.getElementById("sectionJMap");
     var fullMap = document.getElementById("fullMap");
@@ -15,43 +13,53 @@ document.addEventListener("DOMContentLoaded", function() {
     var row5Button = document.getElementById("row-5");
     var row5Map = document.getElementById("row5Map");
 
-
+    // Add seat to cart
     function addSeatToCart(button) {
         var seatInfo = button.parentElement.querySelector('p').textContent;
         var seatDetails = seatInfo.split(', ');
         var section = seatDetails[0].split(': ')[1];
         var row = seatDetails[1].split(': ')[1];
         var seatNumber = seatDetails[2].split(': ')[1];
-        var price = button.textContent;
+        var priceText = button.textContent;
+        var price = parseFloat(priceText.split('$')[1]);
 
-        // Create a new row in the cart table for the selected seat
+        // Update total price
+        totalPrice += price;
+        updateTotalAndPurchaseButton();
+
+        // Add row to cart table
         var cartTable = document.getElementById("cart-table").querySelector("tbody");
         var newRow = cartTable.insertRow();
-        newRow.innerHTML = `<td>${row}</td><td>${seatNumber}</td><td>${price}</td>`;
+        newRow.innerHTML = `<td>${row}</td><td>${seatNumber}</td><td>${priceText}</td>`;
 
-        // Disable the button after selection
-        button.disabled = true;
-
+        // Add delete button
         var deleteCell = newRow.insertCell();
         var deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.onclick = function() {
-            // Remove the row from the cart
             cartTable.deleteRow(newRow.rowIndex - 1);
-
-            // Enable seat button
             button.disabled = false;
+            totalPrice -= price;
+            updateTotalAndPurchaseButton();
         };
-        //update price
-        var priceText = button.textContent.split('$')[1];
-        var price = parseFloat(priceText);
-        totalPrice += price;
-        updateTotalAndPurchaseButton();
-
         deleteCell.appendChild(deleteButton);
+
+        // Disable seat selection button
+        button.disabled = true;
     }
 
-    // Find all price buttons and add event listeners
+    // Update total and purchase button
+    function updateTotalAndPurchaseButton() {
+        var totalPriceElement = document.getElementById("total-price");
+        totalPriceElement.textContent = totalPrice.toFixed(2);
+
+        var purchaseButton = document.getElementById("purchase-button");
+        var ticketCount = cartTable.querySelectorAll("tr").length;
+        purchaseButton.textContent = `Buy ${ticketCount} ticket${ticketCount > 1 ? 's' : ''} for $${totalPrice.toFixed(2)}`;
+        purchaseButton.style.display = ticketCount > 0 ? 'block' : 'none';
+    }
+
+    // Event listeners for seat selection
     var priceButtons = document.querySelectorAll(".price-button");
     priceButtons.forEach(function(button) {
         button.addEventListener("click", function() {
@@ -59,29 +67,18 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    function updateTotalAndPurchaseButton() {
-        // Update total price display
-        var totalPriceElement = document.getElementById("total-price");
-        totalPriceElement.textContent = totalPrice.toFixed(2);
-
-        // Update purchase button
-        var purchaseButton = document.getElementById("purchase-button");
-        var ticketCount = document.getElementById("cart-table").querySelectorAll("tbody tr").length;
-        purchaseButton.textContent = `Buy ${ticketCount} ticket${ticketCount > 1 ? 's' : ''} for $${totalPrice.toFixed(2)}`;
-        purchaseButton.style.display = ticketCount > 0 ? 'block' : 'none';
-    }
+    // Event listeners for navigation
     sectionJButton.addEventListener("click", function() {
-        currentStep = "row"; // Update the current step
+        currentStep = "row";
         updateUI();
     });
 
     row5Button.addEventListener("click", function() {
-        currentStep = "seat"; // Update the current step
+        currentStep = "seat";
         updateUI();
     });
 
     backButton.addEventListener("click", function() {
-        // Logic to handle back button based on the current step
         if (currentStep === "seat") {
             currentStep = "row";
         } else if (currentStep === "row") {
@@ -90,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function() {
         updateUI();
     });
 
+    // Update UI based on the current step
     function updateUI() {
-        // Hide all maps and buttons initially
         sectionJMap.style.display = "none";
         row5Map.style.display = "none";
         fullMap.style.display = "none";
@@ -99,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
         rowButtons.style.display = "none";
         seatButtons.style.display = "none";
 
-        // Show elements based on the current step
         if (currentStep === "section") {
             fullMap.style.display = "block";
             selectionButtons.style.display = "block";
