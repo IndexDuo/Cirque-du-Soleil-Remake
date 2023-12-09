@@ -1,7 +1,5 @@
 //show section J seat map image when button section J is clicked. hide the map in the background
 document.addEventListener("DOMContentLoaded", function() {
-    var currentStep = "section"; // Initial step is selecting a section
-    var backButton = document.getElementById("back");
     var sectionJButton = document.getElementById("section-J");
     var sectionJMap = document.getElementById("sectionJMap");
     var fullMap = document.getElementById("fullMap");
