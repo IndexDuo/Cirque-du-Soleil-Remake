@@ -1,5 +1,6 @@
 #sectionJMap {
     display: none;
+    width: 700px
   }
 
 .row-buttons{
@@ -15,6 +16,7 @@
     width: 700px
  }
 
- #sectionJMap{
-    width: 700px
+ #row5Map{
+    width: 700px;
+    display: none;
  }

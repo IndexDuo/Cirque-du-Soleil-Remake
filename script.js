@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var rowButtons = document.querySelector(".row-buttons");
     var seatButtons = document.querySelector(".seat-buttons");
     var row5Button = document.getElementById("row-5");
+    var row5Map = document.getElementById("row5Map");
 
     sectionJButton.addEventListener("click", function() {
         // Display the section J map and hide the full map
@@ -19,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
     row5Button.addEventListener("click", function() {
         seatButtons.style.display = "block";
         rowButtons.style.display = "none";
+        row5Map.style.display = "block";
+        sectionJMap.style.display = "none";
     });
 
 });
