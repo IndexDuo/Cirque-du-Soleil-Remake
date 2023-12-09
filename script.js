@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 
+    var purchaseButton = document.getElementById("purchase-button");
+    var successMessage = document.getElementById("success-message");
 
     var currentStep = "section"; // Track the current step
     // It's the DOM! The Magnificent DOM!
@@ -14,7 +16,13 @@ document.addEventListener("DOMContentLoaded", function() {
     var backButton = document.getElementById("back-button"); // Back button
     var row5Button = document.getElementById("row-5");
     var row5Map = document.getElementById("row5Map");
+    //price
+    var totalPrice = document.getElementById("total-price");
 
+    purchaseButton.addEventListener("click", function() {
+        successMessage.textContent = "Purchase successful!";
+        successMessage.style.display = "block";
+    });
 
     function addSeatToCart(button) {
         var seatInfo = button.parentElement.querySelector('p').textContent;
@@ -23,15 +31,48 @@ document.addEventListener("DOMContentLoaded", function() {
         var row = seatDetails[1].split(': ')[1];
         var seatNumber = seatDetails[2].split(': ')[1];
         var price = button.textContent;
+        var priceActual = price.split('$')[1];
 
         // Create a new row in the cart table for the selected seat
         var cartTable = document.getElementById("cart-table").querySelector("tbody");
         var newRow = cartTable.insertRow();
         newRow.innerHTML = `<td>${section}</td><td>${row}</td><td>${seatNumber}</td><td>${price}</td>`;
-
+        
+        var deleteCell = newRow.insertCell();
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            // Remove the row from the cart
+            cartTable.deleteRow(newRow.rowIndex - 1);
+            totalPrice.textContent = parseInt(totalPrice.textContent) - parseInt(priceActual);
+            //ticket count
+            var ticketCount = document.getElementById("cart-table").querySelectorAll("tbody tr").length;
+        var ticketsCountElement = document.getElementById("tickets-count");
+        ticketsCountElement.textContent = ticketCount;
+        var priceCountElement =  document.getElementById("total-price2");
+        priceCountElement.textContent = totalPrice.textContent;
+            // Enable the corresponding seat button again
+            button.disabled = false;
+        };
+        deleteCell.appendChild(deleteButton);
         // Disable the button after selection
         button.disabled = true;
+
+        
+        console.log(priceActual);
+        totalPrice.textContent = parseInt(totalPrice.textContent) + parseInt(priceActual);
+        //ticket count
+        var ticketCount = document.getElementById("cart-table").querySelectorAll("tbody tr").length;
+        var ticketsCountElement = document.getElementById("tickets-count");
+        ticketsCountElement.textContent = ticketCount;
+        var priceCountElement =  document.getElementById("total-price2");
+        priceCountElement.textContent = totalPrice.textContent;
+    
+        // var purchaseButton = document.getElementById("purchase-button");
+        // purchaseButton.style.display = ticketCount < 0 ? 'block' : 'none';
     }
+
+
 
     // Find all price buttons and add event listeners
     var priceButtons = document.querySelectorAll(".price-button");
@@ -82,10 +123,10 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (currentStep === "seat") {
             row5Map.style.display = "block";
             seatButtons.style.display = "block";
-            selectionTitle.textContent = "Choose a seat in Section J Row 5";
+            selectionTitle.textContent = "Choose your seat(s) in Section J Row 5";
         }
     }
 
-    // Initialize the UI
+    // initial UI update
     updateUI();
 });

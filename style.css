@@ -1,3 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    padding: 20px 0;
+    text-align: center;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Split into two columns */
+    gap: 20px; /* Space between columns */
+    margin: 20px;
+}
+
+.cart-area {
+    /* Styles for the cart area */
+    background-color: #f9f9f9; /* Example background color */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.button, .row-button, .section-button, .price-button{
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button{
+    cursor: pointer;
+}
+
+#cart-summary {
+    margin-top: 20px;
+}
+
+#cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#cart-table th, #cart-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#cart-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#purchase-button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
 #sectionJMap {
     display: none;
     width: 700px
@@ -24,3 +99,19 @@
  .purchase-button{
     display: none;
   }
+
+  #cart-total{
+    display: none;
+  }
+#success-message{
+    display: none;
+  }
+
+.button:focus-visible, 
+.row-button:focus-visible, 
+.section-button:focus-visible, 
+.price-button:focus-visible {
+    outline: none;
+    border: 3px solid black;
+    box-shadow: 0 0 0 2px white; /* Optional: for better visibility */
+}
