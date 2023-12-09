@@ -1,0 +1,20 @@
+#sectionJMap {
+    display: none;
+  }
+
+.row-buttons{
+    display: none;
+  }
+
+  .seat-buttons{
+    display: none;
+  }
+
+
+#fullMap{
+    width: 700px
+ }
+
+ #sectionJMap{
+    width: 700px
+ }
