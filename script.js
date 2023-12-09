@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create a new row in the cart table for the selected seat
         var cartTable = document.getElementById("cart-table").querySelector("tbody");
         var newRow = cartTable.insertRow();
-        newRow.innerHTML = `<td>${row}</td><td>${seatNumber}</td><td>${price}</td>`;
+        newRow.innerHTML = `<td>${section}</td><td>${row}</td><td>${seatNumber}</td><td>${price}</td>`;
 
         // Disable the button after selection
         button.disabled = true;
