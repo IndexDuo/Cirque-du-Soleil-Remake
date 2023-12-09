@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 
-
+    var totalPrice = 0;
     var currentStep = "section"; // Track the current step
     // It's the DOM! The Magnificent DOM!
     var sectionJButton = document.getElementById("section-J");
@@ -39,9 +39,15 @@ document.addEventListener("DOMContentLoaded", function() {
             // Remove the row from the cart
             cartTable.deleteRow(newRow.rowIndex - 1);
 
-            // Enable the corresponding seat button again
+            // Enable seat button
             button.disabled = false;
         };
+        //update price
+        var priceText = button.textContent.split('$')[1];
+        var price = parseFloat(priceText);
+        totalPrice += price;
+        updateTotalAndPurchaseButton();
+
         deleteCell.appendChild(deleteButton);
     }
 
@@ -53,6 +59,17 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    function updateTotalAndPurchaseButton() {
+        // Update total price display
+        var totalPriceElement = document.getElementById("total-price");
+        totalPriceElement.textContent = totalPrice.toFixed(2);
+
+        // Update purchase button
+        var purchaseButton = document.getElementById("purchase-button");
+        var ticketCount = document.getElementById("cart-table").querySelectorAll("tbody tr").length;
+        purchaseButton.textContent = `Buy ${ticketCount} ticket${ticketCount > 1 ? 's' : ''} for $${totalPrice.toFixed(2)}`;
+        purchaseButton.style.display = ticketCount > 0 ? 'block' : 'none';
+    }
     sectionJButton.addEventListener("click", function() {
         currentStep = "row"; // Update the current step
         updateUI();
